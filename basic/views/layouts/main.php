@@ -40,9 +40,18 @@ AppAsset::register($this);
             //['label' => 'Nosotros', 'url' => ['/site/about']],
             ['label' => 'Clientes', 'url' => ['/clientes']],
             ['label' => 'Productos', 'url' => ['/productos']],
+            ['label' => 'Pedidos', 'url' => ['/pedidos']],
             [
-            'label' => 'Parametros',
-              'items' => [
+              'label' => 'Almacen',
+                'items' => [
+                  ['label' => 'Inventario', 'url' => ['/inventario']],
+                  ['label' => 'Registrar Entradas', 'url' => ['/entradas']],
+                  ['label' => 'Registrar Salidas', 'url' => ['/salidas']],
+                ],
+            ],
+            [
+              'label' => 'Parametros',
+                'items' => [
                   ['label' => 'Embalaje', 'url' => ['/embalaje']],
                   ['label' => 'Impuestos', 'url' => ['/impuestos']],
               ],

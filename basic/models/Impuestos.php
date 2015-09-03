@@ -7,9 +7,13 @@ use Yii;
 /**
  * This is the model class for table "{{%impuestos}}".
  *
- * @property integer $id
+ * @property integer $idImpuesto
  * @property string $nombre
- * @property integer $valor
+ * @property string $valor
+ * @property string $create_time
+ * @property string $update_time
+ *
+ * @property Productos[] $productos
  */
 class Impuestos extends \yii\db\ActiveRecord
 {
@@ -27,9 +31,9 @@ class Impuestos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre', 'valor'], 'required'],
-            [['valor'], 'integer'],
-            [['nombre'], 'string', 'max' => 20]
+            [['valor'], 'number'],
+            [['create_time', 'update_time'], 'safe'],
+            [['nombre'], 'string', 'max' => 45]
         ];
     }
 
@@ -39,10 +43,20 @@ class Impuestos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'idImpuesto' => 'Id Impuesto',
             'nombre' => 'Nombre',
             'valor' => 'Valor',
+            'create_time' => 'Create Time',
+            'update_time' => 'Update Time',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductos()
+    {
+        return $this->hasMany(Productos::className(), ['impuestos_idImpuesto' => 'idImpuesto']);
     }
 
     /**

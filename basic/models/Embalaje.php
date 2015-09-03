@@ -9,6 +9,10 @@ use Yii;
  *
  * @property integer $idEmbalaje
  * @property string $nombre
+ * @property string $create_time
+ * @property string $update_time
+ *
+ * @property Productos[] $productos
  */
 class Embalaje extends \yii\db\ActiveRecord
 {
@@ -26,8 +30,8 @@ class Embalaje extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['nombre'], 'required'],
-            [['nombre'], 'string', 'max' => 50]
+            [['create_time', 'update_time'], 'safe'],
+            [['nombre'], 'string', 'max' => 45]
         ];
     }
 
@@ -39,7 +43,17 @@ class Embalaje extends \yii\db\ActiveRecord
         return [
             'idEmbalaje' => 'Id Embalaje',
             'nombre' => 'Nombre',
+            'create_time' => 'Create Time',
+            'update_time' => 'Update Time',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getProductos()
+    {
+        return $this->hasMany(Productos::className(), ['embalaje_idEmbalaje' => 'idEmbalaje']);
     }
 
     /**

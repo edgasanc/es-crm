@@ -14,18 +14,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'razonSocial')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'direccion')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'barrio')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'telefono')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'telefono')->textInput() ?>
 
-    <?= $form->field($model, 'nit')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'nit')->textInput() ?>
 
-    <?= $form->field($model, 'fechaCreacion')->textInput() ?>
+    <?= $form->field($model, 'nitVer')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Crear' : 'Actualizar', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

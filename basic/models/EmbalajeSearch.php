@@ -19,7 +19,7 @@ class EmbalajeSearch extends Embalaje
     {
         return [
             [['idEmbalaje'], 'integer'],
-            [['nombre'], 'safe'],
+            [['nombre', 'create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -57,6 +57,8 @@ class EmbalajeSearch extends Embalaje
 
         $query->andFilterWhere([
             'idEmbalaje' => $this->idEmbalaje,
+            'create_time' => $this->create_time,
+            'update_time' => $this->update_time,
         ]);
 
         $query->andFilterWhere(['like', 'nombre', $this->nombre]);

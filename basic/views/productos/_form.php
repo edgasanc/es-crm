@@ -16,13 +16,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'producto')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'embalaje')->textInput() ?>
+    <?= $form->field($model, 'precio')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'impuesto')->textInput() ?>
+    <?= $form->field($model, 'embalaje_idEmbalaje')->textInput() ?>
 
-    <?= $form->field($model, 'precio')->textInput() ?>
-
-    <?= $form->field($model, 'fechaCreacion')->textInput() ?>
+    <?= $form->field($model, 'impuestos_idImpuesto')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

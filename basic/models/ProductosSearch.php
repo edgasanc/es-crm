@@ -18,8 +18,9 @@ class ProductosSearch extends Productos
     public function rules()
     {
         return [
-            [['idProductos', 'codigo', 'embalaje', 'impuesto', 'precio'], 'integer'],
-            [['producto', 'fechaCreacion'], 'safe'],
+            [['idProducos', 'codigo', 'embalaje_idEmbalaje', 'impuestos_idImpuesto'], 'integer'],
+            [['producto', 'create_time', 'update_time'], 'safe'],
+            [['precio'], 'number'],
         ];
     }
 
@@ -56,12 +57,13 @@ class ProductosSearch extends Productos
         }
 
         $query->andFilterWhere([
-            'idProductos' => $this->idProductos,
+            'idProducos' => $this->idProducos,
             'codigo' => $this->codigo,
-            'embalaje' => $this->embalaje,
-            'impuesto' => $this->impuesto,
             'precio' => $this->precio,
-            'fechaCreacion' => $this->fechaCreacion,
+            'embalaje_idEmbalaje' => $this->embalaje_idEmbalaje,
+            'impuestos_idImpuesto' => $this->impuestos_idImpuesto,
+            'create_time' => $this->create_time,
+            'update_time' => $this->update_time,
         ]);
 
         $query->andFilterWhere(['like', 'producto', $this->producto]);

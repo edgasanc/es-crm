@@ -18,8 +18,8 @@ class ClientesSearch extends Clientes
     public function rules()
     {
         return [
-            [['idCliente'], 'integer'],
-            [['razonSocial', 'direccion', 'barrio', 'telefono', 'nit', 'fechaCreacion'], 'safe'],
+            [['idClientes', 'telefono', 'nit', 'nitVer'], 'integer'],
+            [['razonSocial', 'barrio', 'create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -56,15 +56,16 @@ class ClientesSearch extends Clientes
         }
 
         $query->andFilterWhere([
-            'idCliente' => $this->idCliente,
-            'fechaCreacion' => $this->fechaCreacion,
+            'idClientes' => $this->idClientes,
+            'telefono' => $this->telefono,
+            'nit' => $this->nit,
+            'nitVer' => $this->nitVer,
+            'create_time' => $this->create_time,
+            'update_time' => $this->update_time,
         ]);
 
         $query->andFilterWhere(['like', 'razonSocial', $this->razonSocial])
-            ->andFilterWhere(['like', 'direccion', $this->direccion])
-            ->andFilterWhere(['like', 'barrio', $this->barrio])
-            ->andFilterWhere(['like', 'telefono', $this->telefono])
-            ->andFilterWhere(['like', 'nit', $this->nit]);
+            ->andFilterWhere(['like', 'barrio', $this->barrio]);
 
         return $dataProvider;
     }

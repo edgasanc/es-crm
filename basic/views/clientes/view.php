@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Clientes */
 
-$this->title = $model->idCliente;
+$this->title = $model->idClientes;
 $this->params['breadcrumbs'][] = ['label' => 'Clientes', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Actualizar', ['update', 'id' => $model->idCliente], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Borrar', ['delete', 'id' => $model->idCliente], [
+        <?= Html::a('Update', ['update', 'id' => $model->idClientes], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->idClientes], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Esta seguro de borrar este registro?',
+                'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,13 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'idCliente',
+            'idClientes',
             'razonSocial',
-            'direccion',
             'barrio',
             'telefono',
             'nit',
-            'fechaCreacion',
+            'nitVer',
+            'create_time',
+            'update_time',
         ],
     ]) ?>
 

@@ -18,8 +18,9 @@ class ImpuestosSearch extends Impuestos
     public function rules()
     {
         return [
-            [['id', 'valor'], 'integer'],
-            [['nombre'], 'safe'],
+            [['idImpuesto'], 'integer'],
+            [['nombre', 'create_time', 'update_time'], 'safe'],
+            [['valor'], 'number'],
         ];
     }
 
@@ -56,8 +57,10 @@ class ImpuestosSearch extends Impuestos
         }
 
         $query->andFilterWhere([
-            'id' => $this->id,
+            'idImpuesto' => $this->idImpuesto,
             'valor' => $this->valor,
+            'create_time' => $this->create_time,
+            'update_time' => $this->update_time,
         ]);
 
         $query->andFilterWhere(['like', 'nombre', $this->nombre]);

@@ -63,7 +63,7 @@ class ImpuestosController extends Controller
         $model = new Impuestos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->idImpuesto]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +82,7 @@ class ImpuestosController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view', 'id' => $model->idImpuesto]);
         } else {
             return $this->render('update', [
                 'model' => $model,

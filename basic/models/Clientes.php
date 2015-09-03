@@ -7,13 +7,16 @@ use Yii;
 /**
  * This is the model class for table "{{%clientes}}".
  *
- * @property integer $idCliente
+ * @property integer $idClientes
  * @property string $razonSocial
- * @property string $direccion
  * @property string $barrio
- * @property string $telefono
- * @property string $nit
- * @property string $fechaCreacion
+ * @property integer $telefono
+ * @property integer $nit
+ * @property integer $nitVer
+ * @property string $create_time
+ * @property string $update_time
+ *
+ * @property Carropedidos[] $carropedidos
  */
 class Clientes extends \yii\db\ActiveRecord
 {
@@ -31,11 +34,10 @@ class Clientes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['razonSocial', 'direccion', 'barrio', 'telefono', 'nit'], 'required'],
-            [['fechaCreacion'], 'safe'],
-            [['razonSocial', 'direccion'], 'string', 'max' => 200],
-            [['barrio'], 'string', 'max' => 100],
-            [['telefono', 'nit'], 'string', 'max' => 12]
+            [['telefono', 'nit', 'nitVer'], 'integer'],
+            [['create_time', 'update_time'], 'safe'],
+            [['razonSocial'], 'string', 'max' => 200],
+            [['barrio'], 'string', 'max' => 45]
         ];
     }
 
@@ -45,14 +47,23 @@ class Clientes extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idCliente' => 'ID',
-            'razonSocial' => 'Razón Social',
-            'direccion' => 'Dirección',
+            'idClientes' => 'ID',
+            'razonSocial' => 'Razon Social',
             'barrio' => 'Barrio',
-            'telefono' => 'Teléfono',
+            'telefono' => 'Telefono',
             'nit' => 'NIT',
-            'fechaCreacion' => 'Fecha Creacion',
+            'nitVer' => 'Cod-NIT',
+            'create_time' => 'Fecha Creación',
+            'update_time' => 'Fecha Actualización',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCarropedidos()
+    {
+        return $this->hasMany(Carropedidos::className(), ['clientes_idClientes' => 'idClientes']);
     }
 
     /**

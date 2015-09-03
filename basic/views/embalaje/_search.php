@@ -19,9 +19,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'nombre') ?>
 
+    <?= $form->field($model, 'create_time') ?>
+
+    <?= $form->field($model, 'update_time') ?>
+
     <div class="form-group">
-        <?= Html::submitButton('Buscar', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Borrar', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
+        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
