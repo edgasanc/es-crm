@@ -48,12 +48,12 @@ class Salidas extends \yii\db\ActiveRecord
     {
         return [
             'idSalidas' => 'Id Salidas',
-            'pedidos_idPedidos' => 'Pedidos Id Pedidos',
-            'productos_idProducos' => 'Productos Id Producos',
+            'pedidos_idPedidos' => 'No. Pedido',
+            'productos_idProducos' => 'Productos',
             'cantidad' => 'Cantidad',
-            'precio' => 'Precio',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
+            'precio' => 'Valor',
+            'create_time' => 'Fecha Creación',
+            'update_time' => 'Fecha Actualización',
         ];
     }
 

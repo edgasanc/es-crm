@@ -45,11 +45,11 @@ class Pedidos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idPedidos' => 'Id Pedidos',
-            'clientes_idClientes' => 'Clientes Id Clientes',
+            'idPedidos' => 'Número Pedido',
+            'clientes_idClientes' => 'Clientes',
             'estadoPedido' => 'Estado Pedido',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
+            'create_time' => 'Fecha Creación',
+            'update_time' => 'Fecha Actualización',
         ];
     }
 

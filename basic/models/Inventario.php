@@ -44,10 +44,10 @@ class Inventario extends \yii\db\ActiveRecord
     {
         return [
             'idAlmacen' => 'Id Almacen',
-            'productos_idProducos' => 'Productos Id Producos',
+            'productos_idProducos' => 'Nombre del Producto',
             'cantidad' => 'Cantidad',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
+            'create_time' => 'Fecha Creación',
+            'update_time' => 'Fecha Actualización',
         ];
     }
 

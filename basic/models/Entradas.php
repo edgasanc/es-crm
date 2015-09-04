@@ -46,11 +46,11 @@ class Entradas extends \yii\db\ActiveRecord
     {
         return [
             'idEntradas' => 'Id Entradas',
-            'productos_idProducos' => 'Productos Id Producos',
+            'productos_idProducos' => 'Productos',
             'cantidad' => 'Cantidad',
-            'precio' => 'Precio',
-            'create_time' => 'Create Time',
-            'update_time' => 'Update Time',
+            'precio' => 'Valor',
+            'create_time' => 'Fecha Creación',
+            'update_time' => 'Fecha Actualización',
         ];
     }
 
