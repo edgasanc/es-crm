@@ -9,7 +9,8 @@ use Yii;
  *
  * @property integer $idPedidos
  * @property integer $clientes_idClientes
- * @property integer $estadoPedido
+ * @property string $fechaEntrega
+ * @property integer $estado_idEstado
  * @property string $create_time
  * @property string $update_time
  *
@@ -33,9 +34,9 @@ class Pedidos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['clientes_idClientes'], 'required'],
-            [['clientes_idClientes', 'estadoPedido'], 'integer'],
-            [['create_time', 'update_time'], 'safe']
+            [['clientes_idClientes', 'fechaEntrega', 'estado_idEstado'], 'required'],
+            [['clientes_idClientes', 'estado_idEstado'], 'integer'],
+            [['fechaEntrega', 'create_time', 'update_time'], 'safe']
         ];
     }
 
@@ -45,11 +46,12 @@ class Pedidos extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idPedidos' => 'Número Pedido',
-            'clientes_idClientes' => 'Clientes',
-            'estadoPedido' => 'Estado Pedido',
-            'create_time' => 'Fecha Creación',
-            'update_time' => 'Fecha Actualización',
+            'idPedidos' => 'No Factura',
+            'clientes_idClientes' => 'Nombre del Cliente',
+            'fechaEntrega' => 'Fecha Entrega',
+            'estado_idEstado' => 'Estado',
+            'create_time' => 'Create Time',
+            'update_time' => 'Update Time',
         ];
     }
 

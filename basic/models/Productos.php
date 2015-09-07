@@ -41,7 +41,7 @@ class Productos extends \yii\db\ActiveRecord
         return [
             [['codigo', 'embalaje_idEmbalaje', 'impuestos_idImpuesto'], 'integer'],
             [['precio'], 'number'],
-            [['embalaje_idEmbalaje', 'impuestos_idImpuesto'], 'required'],
+            [['codigo','producto','precio','embalaje_idEmbalaje', 'impuestos_idImpuesto'], 'required'],
             [['create_time', 'update_time'], 'safe'],
             [['producto'], 'string', 'max' => 200]
         ];

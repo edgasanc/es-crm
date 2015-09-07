@@ -29,8 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'codigo',
             'producto',
             'precio',
-            'embalaje_idEmbalaje',
-            'impuestos_idImpuesto',
+            [
+                'attribute'=>'embalaje_idEmbalaje',
+                'value'=>'embalajeIdEmbalaje.nombre',
+            ],
+            [
+                'attribute'=>'impuestos_idImpuesto',
+                'value'=>'impuestosIdImpuesto.valor',
+            ],
+            //'impuestos_idImpuesto',
             //'create_time',
             //'update_time',
 

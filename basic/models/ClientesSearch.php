@@ -19,7 +19,7 @@ class ClientesSearch extends Clientes
     {
         return [
             [['idClientes', 'telefono', 'nit', 'nitVer'], 'integer'],
-            [['razonSocial', 'barrio', 'create_time', 'update_time'], 'safe'],
+            [['razonSocial', 'direccion', 'barrio', 'create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -65,6 +65,7 @@ class ClientesSearch extends Clientes
         ]);
 
         $query->andFilterWhere(['like', 'razonSocial', $this->razonSocial])
+            ->andFilterWhere(['like', 'direccion', $this->direccion])
             ->andFilterWhere(['like', 'barrio', $this->barrio]);
 
         return $dataProvider;

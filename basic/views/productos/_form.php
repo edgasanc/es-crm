@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\Embalaje;
+use app\models\Impuestos;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Productos */
@@ -18,9 +21,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'precio')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'embalaje_idEmbalaje')->textInput() ?>
+    <?= $form->field($model, 'embalaje_idEmbalaje')->dropDownList(
+        ArrayHelper::map(Embalaje::find()->all(),'idEmbalaje','nombre'),
+        ['prompt'=>'Seleccione un embalaje']
+    ) ?>
 
-    <?= $form->field($model, 'impuestos_idImpuesto')->textInput() ?>
+    <?= $form->field($model, 'impuestos_idImpuesto')->dropDownList(
+        ArrayHelper::map(Impuestos::find()->all(),'idImpuesto','valor'),
+        ['prompt'=>'Seleccione un impuesto']
+    ) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

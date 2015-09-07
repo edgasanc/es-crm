@@ -195,6 +195,7 @@ ALTER TABLE `carropedidos`
   ADD PRIMARY KEY (`idCarroPedidos`,`pedidos_idPedidos`,`productos_idProducos`),
   ADD KEY `fk_carroPedidos_productos1_idx` (`productos_idProducos`),
   ADD KEY `fk_carroPedidos_pedidos1_idx` (`pedidos_idPedidos`);
+  ADD KEY `fk_carroPedidos_pedidos2_idx` (`estado_idEstado`);
 
 --
 -- Indices de la tabla `clientes`

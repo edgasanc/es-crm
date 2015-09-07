@@ -5,23 +5,21 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%embalaje}}".
+ * This is the model class for table "{{%estado}}".
  *
- * @property integer $idEmbalaje
+ * @property integer $idEstado
  * @property string $nombre
  * @property string $create_time
  * @property string $update_time
- *
- * @property Productos[] $productos
  */
-class Embalaje extends \yii\db\ActiveRecord
+class Estado extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%embalaje}}';
+        return '{{%estado}}';
     }
 
     /**
@@ -32,7 +30,7 @@ class Embalaje extends \yii\db\ActiveRecord
         return [
             [['nombre'], 'required'],
             [['create_time', 'update_time'], 'safe'],
-            [['nombre'], 'string', 'max' => 45]
+            [['nombre'], 'string', 'max' => 50]
         ];
     }
 
@@ -42,7 +40,7 @@ class Embalaje extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idEmbalaje' => 'Id Embalaje',
+            'idEstado' => 'Id Estado',
             'nombre' => 'Nombre',
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
@@ -50,19 +48,11 @@ class Embalaje extends \yii\db\ActiveRecord
     }
 
     /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProductos()
-    {
-        return $this->hasMany(Productos::className(), ['embalaje_idEmbalaje' => 'idEmbalaje']);
-    }
-
-    /**
      * @inheritdoc
-     * @return EmbalajeQuery the active query used by this AR class.
+     * @return EstadoQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new EmbalajeQuery(get_called_class());
+        return new EstadoQuery(get_called_class());
     }
 }

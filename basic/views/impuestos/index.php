@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'idImpuesto',
             'nombre',
             'valor',
-            'create_time',
-            'update_time',
+            //'create_time',
+            //'update_time',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -54,6 +54,7 @@ AppAsset::register($this);
                 'items' => [
                   ['label' => 'Embalaje', 'url' => ['/embalaje']],
                   ['label' => 'Impuestos', 'url' => ['/impuestos']],
+                  ['label' => 'Estado', 'url' => ['/estado']],
               ],
             ],
             ['label' => 'Contacto', 'url' => ['/site/contact']],

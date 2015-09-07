@@ -29,11 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'idPedidos',
-            'clientes_idClientes',
-            'estadoPedido',
+            'clientesIdClientes.razonSocial',
+            'fechaEntrega',
+            'estado_idEstado',
             'create_time',
             'update_time',
         ],
     ]) ?>
+    <p>
+          <?= Html::a('Añadir Prodcutos', ['/carropedidos/create', 'idPedidos' => $model->idPedidos], ['class' => 'btn btn-primary']) ?>
+    </p>
+    <p>
+          <?= Html::a('Ver Prodcutos Añadidos', ['/carropedidos', 'idPedidos' => $model->idPedidos], ['class' => 'btn btn-primary']) ?>
+    </p>
 
 </div>

@@ -14,6 +14,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'razonSocial')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'direccion')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($model, 'barrio')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'telefono')->textInput() ?>

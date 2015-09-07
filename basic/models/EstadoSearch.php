@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Pedidos;
+use app\models\Estado;
 
 /**
- * PedidosSearch represents the model behind the search form about `app\models\Pedidos`.
+ * EstadoSearch represents the model behind the search form about `app\models\Estado`.
  */
-class PedidosSearch extends Pedidos
+class EstadoSearch extends Estado
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class PedidosSearch extends Pedidos
     public function rules()
     {
         return [
-            [['idPedidos', 'clientes_idClientes', 'estado_idEstado'], 'integer'],
-            [['fechaEntrega', 'create_time', 'update_time'], 'safe'],
+            [['idEstado'], 'integer'],
+            [['nombre', 'create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class PedidosSearch extends Pedidos
      */
     public function search($params)
     {
-        $query = Pedidos::find();
+        $query = Estado::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,13 +56,12 @@ class PedidosSearch extends Pedidos
         }
 
         $query->andFilterWhere([
-            'idPedidos' => $this->idPedidos,
-            'clientes_idClientes' => $this->clientes_idClientes,
-            'fechaEntrega' => $this->fechaEntrega,
-            'estado_idEstado' => $this->estado_idEstado,
+            'idEstado' => $this->idEstado,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
         ]);
+
+        $query->andFilterWhere(['like', 'nombre', $this->nombre]);
 
         return $dataProvider;
     }

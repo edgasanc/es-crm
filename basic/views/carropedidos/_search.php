@@ -4,32 +4,26 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ClientesSearch */
+/* @var $model app\models\CarropedidosSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="clientes-search">
+<div class="carropedidos-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'idClientes') ?>
+    <?= $form->field($model, 'idCarroPedidos') ?>
 
-    <?= $form->field($model, 'razonSocial') ?>
+    <?= $form->field($model, 'pedidos_idPedidos') ?>
 
-    <?= $form->field($model, 'direccion') ?>
+    <?= $form->field($model, 'productos_idProducos') ?>
 
-    <?= $form->field($model, 'barrio') ?>
+    <?= $form->field($model, 'cantidad') ?>
 
-    <?= $form->field($model, 'telefono') ?>
-
-    <?php // echo $form->field($model, 'nit') ?>
-
-    <?php // echo $form->field($model, 'nitVer') ?>
-
-    <?php // echo $form->field($model, 'create_time') ?>
+    <?= $form->field($model, 'create_time') ?>
 
     <?php // echo $form->field($model, 'update_time') ?>
 

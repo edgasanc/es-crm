@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $idClientes
  * @property string $razonSocial
+ * @property string $direccion
  * @property string $barrio
  * @property integer $telefono
  * @property integer $nit
@@ -16,7 +17,7 @@ use Yii;
  * @property string $create_time
  * @property string $update_time
  *
- * @property Carropedidos[] $carropedidos
+ * @property Pedidos[] $pedidos
  */
 class Clientes extends \yii\db\ActiveRecord
 {
@@ -34,9 +35,11 @@ class Clientes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['razonSocial','direccion','barrio','telefono','nit'], 'required'],
             [['telefono', 'nit', 'nitVer'], 'integer'],
             [['create_time', 'update_time'], 'safe'],
             [['razonSocial'], 'string', 'max' => 200],
+            [['direccion'], 'string', 'max' => 100],
             [['barrio'], 'string', 'max' => 45]
         ];
     }
@@ -47,23 +50,24 @@ class Clientes extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idClientes' => 'ID',
-            'razonSocial' => 'Razon Social',
+            'idClientes' => 'Id Clientes',
+            'razonSocial' => 'Razon Social - Nombre',
+            'direccion' => 'Direccion',
             'barrio' => 'Barrio',
             'telefono' => 'Telefono',
-            'nit' => 'NIT',
-            'nitVer' => 'Cod-NIT',
-            'create_time' => 'Fecha Creación',
-            'update_time' => 'Fecha Actualización',
+            'nit' => 'NIT - Cédula',
+            'nitVer' => 'Código NIT',
+            'create_time' => 'Create Time',
+            'update_time' => 'Update Time',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCarropedidos()
+    public function getPedidos()
     {
-        return $this->hasMany(Carropedidos::className(), ['clientes_idClientes' => 'idClientes']);
+        return $this->hasMany(Pedidos::className(), ['clientes_idClientes' => 'idClientes']);
     }
 
     /**

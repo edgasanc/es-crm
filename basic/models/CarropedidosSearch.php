@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Pedidos;
+use app\models\Carropedidos;
 
 /**
- * PedidosSearch represents the model behind the search form about `app\models\Pedidos`.
+ * CarropedidosSearch represents the model behind the search form about `app\models\Carropedidos`.
  */
-class PedidosSearch extends Pedidos
+class CarropedidosSearch extends Carropedidos
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class PedidosSearch extends Pedidos
     public function rules()
     {
         return [
-            [['idPedidos', 'clientes_idClientes', 'estado_idEstado'], 'integer'],
-            [['fechaEntrega', 'create_time', 'update_time'], 'safe'],
+            [['idCarroPedidos', 'pedidos_idPedidos', 'productos_idProducos', 'cantidad'], 'integer'],
+            [['create_time', 'update_time'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class PedidosSearch extends Pedidos
      */
     public function search($params)
     {
-        $query = Pedidos::find();
+        $query = Carropedidos::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,10 +56,10 @@ class PedidosSearch extends Pedidos
         }
 
         $query->andFilterWhere([
-            'idPedidos' => $this->idPedidos,
-            'clientes_idClientes' => $this->clientes_idClientes,
-            'fechaEntrega' => $this->fechaEntrega,
-            'estado_idEstado' => $this->estado_idEstado,
+            'idCarroPedidos' => $this->idCarroPedidos,
+            'pedidos_idPedidos' => $this->pedidos_idPedidos,
+            'productos_idProducos' => $this->productos_idProducos,
+            'cantidad' => $this->cantidad,
             'create_time' => $this->create_time,
             'update_time' => $this->update_time,
         ]);
