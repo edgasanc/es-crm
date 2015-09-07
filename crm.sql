@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-09-2015 a las 00:37:37
+-- Tiempo de generación: 07-09-2015 a las 05:12:23
 -- Versión del servidor: 5.6.25
 -- Versión de PHP: 5.6.11
 
@@ -32,9 +32,15 @@ CREATE TABLE IF NOT EXISTS `carropedidos` (
   `productos_idProducos` int(11) NOT NULL,
   `cantidad` int(11) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `estadoCarroPedidos` int(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `carropedidos`
+--
+
+INSERT INTO `carropedidos` (`idCarroPedidos`, `pedidos_idPedidos`, `productos_idProducos`, `cantidad`, `create_time`, `update_time`) VALUES
+(1, 1, 1, 2, '2015-09-06 20:30:08', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -45,20 +51,22 @@ CREATE TABLE IF NOT EXISTS `carropedidos` (
 CREATE TABLE IF NOT EXISTS `clientes` (
   `idClientes` int(11) NOT NULL,
   `razonSocial` varchar(200) COLLATE utf8_spanish2_ci DEFAULT NULL,
+  `direccion` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `barrio` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `telefono` int(10) DEFAULT NULL,
   `nit` int(10) DEFAULT NULL,
   `nitVer` int(1) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`idClientes`, `razonSocial`, `barrio`, `telefono`, `nit`, `nitVer`, `create_time`, `update_time`) VALUES
-(1, 'Escuela Superior de Administración Pública', 'CAN', 2202790, 899999054, 7, '2015-09-03 22:10:44', '2015-09-03 22:12:06');
+INSERT INTO `clientes` (`idClientes`, `razonSocial`, `direccion`, `barrio`, `telefono`, `nit`, `nitVer`, `create_time`, `update_time`) VALUES
+(1, 'Escuela Superior de Administración Pública', 'Calle 44 No 53 37', 'CAN', 2202790, 899999054, 7, '2015-09-03 22:10:44', '2015-09-06 20:03:01'),
+(2, 'Edgar Alberto Sanchez Gonzalez', 'Carrera 24D No 11 80 Sur Int 7 Apt 304', 'Restrepo', 2202790, 80903960, NULL, '2015-09-07 02:42:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -71,14 +79,16 @@ CREATE TABLE IF NOT EXISTS `embalaje` (
   `nombre` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `embalaje`
 --
 
 INSERT INTO `embalaje` (`idEmbalaje`, `nombre`, `create_time`, `update_time`) VALUES
-(1, 'Unidad', '2015-09-03 22:14:21', '0000-00-00 00:00:00');
+(1, 'Unidad', '2015-09-03 22:14:21', '0000-00-00 00:00:00'),
+(2, 'Caja', '2015-09-06 21:25:33', '0000-00-00 00:00:00'),
+(3, 'Paquete', '2015-09-06 21:25:40', '2015-09-06 21:26:06');
 
 -- --------------------------------------------------------
 
@@ -98,6 +108,28 @@ CREATE TABLE IF NOT EXISTS `entradas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estado`
+--
+
+CREATE TABLE IF NOT EXISTS `estado` (
+  `idEstado` int(11) NOT NULL,
+  `nombre` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `estado`
+--
+
+INSERT INTO `estado` (`idEstado`, `nombre`, `create_time`, `update_time`) VALUES
+(1, 'Creado', '2015-09-07 01:11:38', '0000-00-00 00:00:00'),
+(2, 'No entregado', '2015-09-07 01:12:05', '0000-00-00 00:00:00'),
+(3, 'Entregado', '2015-09-07 01:12:17', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `impuestos`
 --
 
@@ -107,14 +139,15 @@ CREATE TABLE IF NOT EXISTS `impuestos` (
   `valor` decimal(4,2) DEFAULT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 --
 -- Volcado de datos para la tabla `impuestos`
 --
 
 INSERT INTO `impuestos` (`idImpuesto`, `nombre`, `valor`, `create_time`, `update_time`) VALUES
-(1, 'IVA General', '16.00', '2015-09-03 22:14:32', '0000-00-00 00:00:00');
+(1, 'IVA General', '16.00', '2015-09-03 22:14:32', '0000-00-00 00:00:00'),
+(2, 'IVA Especial', '5.00', '2015-09-06 22:10:28', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -139,10 +172,19 @@ CREATE TABLE IF NOT EXISTS `inventario` (
 CREATE TABLE IF NOT EXISTS `pedidos` (
   `idPedidos` int(11) NOT NULL,
   `clientes_idClientes` int(11) NOT NULL,
-  `estadoPedido` int(1) DEFAULT NULL,
+  `fechaEntrega` date NOT NULL,
+  `estado_idEstado` int(11) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`idPedidos`, `clientes_idClientes`, `fechaEntrega`, `estado_idEstado`, `create_time`, `update_time`) VALUES
+(1, 1, '2015-09-23', 1, '2015-09-06 20:27:23', '2015-09-07 02:12:42'),
+(2, 2, '2015-09-30', 1, '2015-09-07 02:42:39', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -166,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
 --
 
 INSERT INTO `productos` (`idProducos`, `codigo`, `producto`, `precio`, `embalaje_idEmbalaje`, `impuestos_idImpuesto`, `create_time`, `update_time`) VALUES
-(1, 10001, 'ACT II Natural', '1690.00', 1, 1, '2015-09-03 22:30:32', '0000-00-00 00:00:00');
+(1, 10001, 'ACT II Natural', '1800.00', 1, 1, '2015-09-03 22:30:32', '2015-09-06 22:58:08');
 
 -- --------------------------------------------------------
 
@@ -195,7 +237,6 @@ ALTER TABLE `carropedidos`
   ADD PRIMARY KEY (`idCarroPedidos`,`pedidos_idPedidos`,`productos_idProducos`),
   ADD KEY `fk_carroPedidos_productos1_idx` (`productos_idProducos`),
   ADD KEY `fk_carroPedidos_pedidos1_idx` (`pedidos_idPedidos`);
-  ADD KEY `fk_carroPedidos_pedidos2_idx` (`estado_idEstado`);
 
 --
 -- Indices de la tabla `clientes`
@@ -217,6 +258,12 @@ ALTER TABLE `entradas`
   ADD KEY `fk_entradas_productos1_idx` (`productos_idProducos`);
 
 --
+-- Indices de la tabla `estado`
+--
+ALTER TABLE `estado`
+  ADD PRIMARY KEY (`idEstado`);
+
+--
 -- Indices de la tabla `impuestos`
 --
 ALTER TABLE `impuestos`
@@ -234,7 +281,9 @@ ALTER TABLE `inventario`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`idPedidos`,`clientes_idClientes`),
-  ADD KEY `fk_pedidos_clientes1_idx` (`clientes_idClientes`);
+  ADD KEY `fk_pedidos_clientes1_idx` (`clientes_idClientes`),
+  ADD KEY `fk_carroPedidos_pedidos2_idx` (`estado_idEstado`),
+  ADD KEY `fk_estado_idEstado2_idx` (`estado_idEstado`);
 
 --
 -- Indices de la tabla `productos`
@@ -260,27 +309,32 @@ ALTER TABLE `salidas`
 -- AUTO_INCREMENT de la tabla `carropedidos`
 --
 ALTER TABLE `carropedidos`
-  MODIFY `idCarroPedidos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCarroPedidos` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `idClientes` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `idClientes` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `embalaje`
 --
 ALTER TABLE `embalaje`
-  MODIFY `idEmbalaje` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `idEmbalaje` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `entradas`
 --
 ALTER TABLE `entradas`
   MODIFY `idEntradas` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `estado`
+--
+ALTER TABLE `estado`
+  MODIFY `idEstado` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT de la tabla `impuestos`
 --
 ALTER TABLE `impuestos`
-  MODIFY `idImpuesto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `idImpuesto` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `inventario`
 --
@@ -290,7 +344,7 @@ ALTER TABLE `inventario`
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `idPedidos` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPedidos` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
