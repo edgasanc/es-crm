@@ -43,7 +43,6 @@ AppAsset::register($this);
                 'items' => [
                     ['label' => 'Inventario', 'url' => ['inventario/index']],
                     ['label' => 'Registrar Entradas', 'url' => ['entrada/index']],
-                    ['label' => 'Registrar Salidas', 'url' => ['salida/index']],
                 ],
             ],
             [
@@ -53,6 +52,20 @@ AppAsset::register($this);
                     ['label' => 'Embalaje', 'url' => ['embalaje/index']],
                     ['label' => 'Impuestos', 'url' => ['impuesto/index']],
                     ['label' => 'Estado', 'url' => ['estado/index']],
+                ],
+            ]
+        );
+    }
+    if (!(Yii::$app->user->isGuest)&& Yii::$app->user->identity->username!="admin") {
+        array_push($navItems,
+            ['label' => 'Clientes', 'url' => ['cliente/index']],
+            ['label' => 'Productos', 'url' => ['producto/index']],
+            ['label' => 'Pedidos', 'url' => ['pedido/index']],
+            [
+                'label' => 'Almacen',
+                'items' => [
+                    ['label' => 'Inventario', 'url' => ['inventario/index']],
+                    ['label' => 'Registrar Entradas', 'url' => ['entrada/index']],
                 ],
             ]
         );
@@ -69,7 +82,7 @@ AppAsset::register($this);
         );
     }
     NavBar::begin([
-        'brandLabel' => 'CRM',
+        'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',

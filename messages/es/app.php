@@ -17,5 +17,6 @@ return [
     "Are you sure you want to delete this item?" => "Está seguro de borrar este item?",
     "Carropedido"=>"Pedido",
     "Carropedidos"=>"Pedidos",
-    "CLiente"=>"Cliente",
+    "Cliente"=>"Cliente",
+    "Pick Items"=>"Seleccione items del pedido",
 ];

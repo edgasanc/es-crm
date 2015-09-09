@@ -68,4 +68,36 @@ class ClienteSearch extends Cliente
 
         return $dataProvider;
     }
+
+
+    public function search2($params)
+    {
+        $query = Cliente::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        $query->andFilterWhere([
+            'idCliente' => $this->idCliente,
+            'owner' => Yii::$app->user->identity->getId(),
+        ]);
+
+        $query->andFilterWhere(['like', 'razonSocial', $this->razonSocial])
+            ->andFilterWhere(['like', 'direccion', $this->direccion])
+            ->andFilterWhere(['like', 'barrio', $this->barrio])
+            ->andFilterWhere(['like', 'telefono', $this->telefono])
+            ->andFilterWhere(['like', 'nit', $this->nit])
+            ->andFilterWhere(['like', 'email', $this->email]);
+
+        return $dataProvider;
+    }
 }

@@ -11,6 +11,7 @@ use Yii;
  * @property integer $cliente_idCliente
  * @property string $fechaEntrega
  * @property string $fechaOrden
+ * @property string $owner
  * @property integer $estado_idEstado
  *
  * @property Carropedido[] $carropedidos
@@ -34,7 +35,7 @@ class Pedido extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cliente_idCliente', 'fechaEntrega', 'fechaOrden', 'estado_idEstado'], 'required'],
+            [['cliente_idCliente', 'fechaEntrega', 'fechaOrden', 'estado_idEstado','owner'], 'required'],
             [['cliente_idCliente', 'estado_idEstado'], 'integer'],
             [['fechaEntrega', 'fechaOrden'], 'safe']
         ];
@@ -46,11 +47,11 @@ class Pedido extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idPedido' => Yii::t('app', 'Id Pedido'),
-            'cliente_idCliente' => Yii::t('app', 'Cliente Id Cliente'),
+            'idPedido' => Yii::t('app', 'ID Pedido'),
+            'cliente_idCliente' => Yii::t('app', 'Cliente'),
             'fechaEntrega' => Yii::t('app', 'Fecha Entrega'),
             'fechaOrden' => Yii::t('app', 'Fecha Orden'),
-            'estado_idEstado' => Yii::t('app', 'Estado Id Estado'),
+            'estado_idEstado' => Yii::t('app', 'Estado'),
         ];
     }
 

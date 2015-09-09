@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PedidoSearch */
@@ -26,11 +27,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'idPedido',
-            'cliente_idCliente',
-            'fechaEntrega',
-            'fechaOrden',
-            'estado_idEstado',
 
+            [
+                'attribute'=>'cliente_idCliente',
+                'value'=>function($model, $index, $dataColumn) {
+                    return $model->clienteIdCliente->razonSocial;
+                },
+            ],
+            'fechaOrden',
+            'fechaEntrega',
+            [
+                'attribute'=>'estado_idEstado',
+                'value'=>function($model, $index, $dataColumn) {
+                    return $model->estadoIdEstado->nombre;
+                },
+            ],
+
+            [
+                'label' => 'Productos',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::a(Html::encode("[+]"),Url::to(['pedido/pick','idPedido'=>$model->idPedido]));
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

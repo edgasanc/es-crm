@@ -14,6 +14,8 @@ use Yii;
  * @property string $telefono
  * @property string $nit
  * @property string $email
+ * @property string $owner
+
  *
  * @property Pedido[] $pedidos
  */
@@ -33,7 +35,7 @@ class Cliente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['razonSocial', 'direccion', 'nit'], 'required'],
+            [['razonSocial', 'direccion', 'nit', 'owner'], 'required'],
             [['nit'], 'unique'],
             [['razonSocial', 'direccion', 'email'], 'string', 'max' => 255],
             [['barrio'], 'string', 'max' => 45],
@@ -48,7 +50,7 @@ class Cliente extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idCliente' => Yii::t('app', 'Id Cliente'),
+            'idCliente' => Yii::t('app', 'Id'),
             'razonSocial' => Yii::t('app', 'Razon Social'),
             'direccion' => Yii::t('app', 'Direccion'),
             'barrio' => Yii::t('app', 'Barrio'),

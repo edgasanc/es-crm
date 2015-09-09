@@ -33,7 +33,9 @@ class ClienteController extends Controller
     public function actionIndex()
     {
         $searchModel = new ClienteSearch();
+        if(Yii::$app->user->identity->username=="admin")
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        else $dataProvider = $searchModel->search2(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -61,7 +63,7 @@ class ClienteController extends Controller
     public function actionCreate()
     {
         $model = new Cliente();
-
+        $model->owner = Yii::$app->user->identity->getId();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->idCliente]);
         } else {

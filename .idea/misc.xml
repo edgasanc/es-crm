@@ -10,18 +10,5 @@
     <ConfirmationsSetting value="0" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/controllers/CarropedidosController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/ClientesController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/EmbalajeController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/EntradasController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/EstadoController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/ImpiestosController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/ImpuestosController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/InventarioController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/PedidosController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/ProductosController.php" />
-    <file url="file://$PROJECT_DIR$/controllers/SalidasController.php" />
-  </component>
   <component name="ProjectRootManager" version="2" />
 </project>

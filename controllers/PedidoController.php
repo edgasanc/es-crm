@@ -2,12 +2,15 @@
 
 namespace app\controllers;
 
+use app\models\Carropedido;
+use app\models\Producto;
 use Yii;
 use app\models\Pedido;
 use app\models\PedidoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * PedidoController implements the CRUD actions for Pedido model.
@@ -33,7 +36,9 @@ class PedidoController extends Controller
     public function actionIndex()
     {
         $searchModel = new PedidoSearch();
+        if(Yii::$app->user->identity->username=="admin")
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        else $dataProvider = $searchModel->search2(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -63,7 +68,9 @@ class PedidoController extends Controller
     public function actionCreate()
     {
         $model = new Pedido();
-
+        $model->owner = Yii::$app->user->identity->getId();
+        $model->estado_idEstado = 1;
+        $model->fechaOrden = (new \DateTime())->format('Y-m-d');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'idPedido' => $model->idPedido, 'cliente_idCliente' => $model->cliente_idCliente, 'estado_idEstado' => $model->estado_idEstado]);
         } else {
@@ -107,6 +114,47 @@ class PedidoController extends Controller
         $this->findModel($idPedido, $cliente_idCliente, $estado_idEstado)->delete();
 
         return $this->redirect(['index']);
+    }
+
+
+    public function actionPick($idPedido){
+        return $this->render('pick', [
+            'model' => Pedido::findOne(['idPedido'=>$idPedido]),
+        ]);
+    }
+
+    public function actionItems($idPedido){
+        $contenido_pedido = Carropedido::findAll(['pedido_idPedido'=>$idPedido]);
+        $id_productos = array_map(function($o) { return $o->producto_idProducto; }, $contenido_pedido);
+        $productos = Producto::find()->where(['NOT IN','idProducto',$id_productos])->all();
+        return Json::encode($productos);
+    }
+
+    public function actionItemsPedidos($idPedido){
+        $contenido_pedido = Carropedido::findAll(['pedido_idPedido'=>$idPedido]);
+        $id_productos = array_map(function($o) { return $o->producto_idProducto; }, $contenido_pedido);
+        $productos = Producto::find()->where(['IN','idProducto',$id_productos])->all();
+        return Json::encode($productos);
+    }
+
+    public function actionSaveItemsPedido(){
+        $idPedido = $_POST['idPedido'];
+        $data = $_POST['data'];
+
+        /*
+         *
+         * array(1) { [0]=> object(stdClass)#88 (8) { ["idProducto"]=> int(2) ["codigo"]=> int(1) ["producto"]=> string(10) "Jabon SOAP" ["precio"]=> string(8) "55000.00" ["embalaje_idEmbalaje"]=> int(4) ["impuestos_idImpuesto"]=> int(3) ["$$hashKey"]=> string(8) "object:3" ["cantidad"]=> int(5) } }
+         *
+         */
+         $lista_productos_seleccionados = json_decode($data, true);
+
+        foreach($lista_productos_seleccionados as $producto){
+            $carropedido = new Carropedido();
+            $carropedido->pedido_idPedido = $idPedido;
+            $carropedido->producto_idProducto = $producto['idProducto'];
+            $carropedido->cantidad = $producto['cantidad'];
+            $carropedido->save();
+        }
     }
 
     /**

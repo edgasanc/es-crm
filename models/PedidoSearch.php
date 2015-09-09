@@ -65,4 +65,33 @@ class PedidoSearch extends Pedido
 
         return $dataProvider;
     }
+
+
+    public function search2($params)
+    {
+        $query = Pedido::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+        
+        $query->andFilterWhere([
+            'owner' => Yii::$app->user->identity->getId(),
+            'idPedido' => $this->idPedido,
+            'cliente_idCliente' => $this->cliente_idCliente,
+            'fechaEntrega' => $this->fechaEntrega,
+            'fechaOrden' => $this->fechaOrden,
+            'estado_idEstado' => $this->estado_idEstado,
+        ]);
+
+        return $dataProvider;
+    }
 }
