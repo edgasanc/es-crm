@@ -50,6 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::a(Html::encode("[+]"),Url::to(['pedido/pick','idPedido'=>$model->idPedido]));
                 }
             ],
+            [
+                'label' => 'Factura',
+                'format' => 'raw',
+                'value' => function($model){
+                    return Html::a(Html::encode("Ver"),"http://jdc.edgasanc.com/es-crm/pdf/examples/factura.php?idCliente=".$model->clienteIdCliente->idCliente."&idPedido=".$model->idPedido);
+                }
+            ],
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>

@@ -21,6 +21,25 @@ return array (
       '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
     ),
   ),
+  'kartik-v/yii2-widget-select2' => 
+  array (
+    'name' => 'kartik-v/yii2-widget-select2',
+    'version' => '2.0.2.0',
+    'alias' => 
+    array (
+      '@kartik/select2' => $vendorDir . '/kartik-v/yii2-widget-select2',
+    ),
+  ),
+  'dektrium/yii2-rbac' => 
+  array (
+    'name' => 'dektrium/yii2-rbac',
+    'version' => '9999999-dev',
+    'alias' => 
+    array (
+      '@dektrium/rbac' => $vendorDir . '/dektrium/yii2-rbac',
+    ),
+    'bootstrap' => 'dektrium\\rbac\\Bootstrap',
+  ),
   'kartik-v/yii2-datecontrol' => 
   array (
     'name' => 'kartik-v/yii2-datecontrol',
@@ -82,15 +101,6 @@ return array (
     'alias' => 
     array (
       '@kartik/sidenav' => $vendorDir . '/kartik-v/yii2-widget-sidenav',
-    ),
-  ),
-  'kartik-v/yii2-widget-select2' => 
-  array (
-    'name' => 'kartik-v/yii2-widget-select2',
-    'version' => '2.0.2.0',
-    'alias' => 
-    array (
-      '@kartik/select2' => $vendorDir . '/kartik-v/yii2-widget-select2',
     ),
   ),
   'kartik-v/yii2-widget-rating' => 
@@ -300,15 +310,5 @@ return array (
     array (
       '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
     ),
-  ),
-  'dektrium/yii2-rbac' => 
-  array (
-    'name' => 'dektrium/yii2-rbac',
-    'version' => '9999999-dev',
-    'alias' => 
-    array (
-      '@dektrium/rbac' => $vendorDir . '/dektrium/yii2-rbac',
-    ),
-    'bootstrap' => 'dektrium\\rbac\\Bootstrap',
   ),
 );
