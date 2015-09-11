@@ -42,6 +42,10 @@ $config = [
                 ],
             ],
         ],
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'locale'=> 'es-CO'
+        ],
         'db' => require(__DIR__ . '/db.php'),
     ],
     'params' => $params,

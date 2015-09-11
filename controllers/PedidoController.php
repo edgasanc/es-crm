@@ -3,7 +3,9 @@
 namespace app\controllers;
 
 use app\models\Carropedido;
+use app\models\Inventario;
 use app\models\Producto;
+use app\models\ProductoDeCarro;
 use Yii;
 use app\models\Pedido;
 use app\models\PedidoSearch;
@@ -72,7 +74,7 @@ class PedidoController extends Controller
         $model->estado_idEstado = 1;
         $model->fechaOrden = (new \DateTime())->format('Y-m-d');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idPedido' => $model->idPedido, 'cliente_idCliente' => $model->cliente_idCliente, 'estado_idEstado' => $model->estado_idEstado]);
+            return $this->redirect(['pick', 'idPedido' => $model->idPedido]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -118,16 +120,35 @@ class PedidoController extends Controller
 
 
     public function actionPick($idPedido){
-        return $this->render('pick', [
-            'model' => Pedido::findOne(['idPedido'=>$idPedido]),
-        ]);
+        $now = new \DateTime();
+        $pedido = Pedido::findOne(['idPedido'=>$idPedido]);
+        $entrega = new \DateTime($pedido->fechaEntrega);
+        $entrega = $entrega->sub(new \DateInterval('P0Y0M0DT7H'));
+        if($now<$entrega)
+            return $this->render('pick', [
+                'model' => $pedido,
+            ]);
+        else new NotFoundHttpException("No puede modificar a pocas horas de la entrega");
     }
 
     public function actionItems($idPedido){
         $contenido_pedido = Carropedido::findAll(['pedido_idPedido'=>$idPedido]);
         $id_productos = array_map(function($o) { return $o->producto_idProducto; }, $contenido_pedido);
         $productos = Producto::find()->where(['NOT IN','idProducto',$id_productos])->all();
-        return Json::encode($productos);
+        $items = array_map(function($u) {
+
+            $temp = Inventario::findOne(['producto_IdProducto'=>$u->idProducto]);
+            if(empty($temp)) $existencias = 0;
+            else $existencias = $temp->stock;
+            $row['codigo']=($u->codigo);
+            $row['nombre']=($u->producto);
+            $row['precio']=($u->precio);
+            $row['embalaje']=($u->embalajeIdEmbalaje->nombre);
+            $row['existencias']=($existencias);
+
+            return $row;
+        }, $productos);
+        return Json::encode($items, true);
     }
 
     public function actionItemsPedidos($idPedido){

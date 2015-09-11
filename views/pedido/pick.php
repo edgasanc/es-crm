@@ -7,6 +7,7 @@ $this->title = Yii::t('app','Pick Items');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Pedidos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 class="panel-title">Pedido</h3>
@@ -16,40 +17,41 @@ $this->params['breadcrumbs'][] = $this->title;
             'model' => $model,
             'attributes' => [
                 'clienteIdCliente.razonSocial',
-                'fechaOrden',
+                'fechaOrden:date',
+                'fechaEntrega:date',
             ],
         ]) ?>
-    </div>
-</div>
-
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 
 <div class="producto-form">
 <div ng-app="dnd">
     <div id="main" ng-controller="dndCtrl">
+
         <div class="row">
             <div class="col-lg-6">
-                <div class="panel panel-info">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Stock</h3>
                     </div>
                     <div class="panel-body">
-                        <p>
-                        <label>Filtrar: <input ng-model="searchText" style="font-size: 1.2em;"></label>
-                        </p>
-                        <ul ng-repeat="item in model | filter:searchText" class="list-group">
-                            <li class="list-group-item">
-                                <div class="row">
-                                <div class="col-sm-8">
-                                    {{item.producto}}
-                                </div>
-                                <div class="col-sm-4">
-                                    <input ng-model="item.cantidad" type="number" min="0" max="999999">
-                                    <button class="btn btn-default btn-xs" ng-click="add($index)">+</button>
-                                </div>
-                                </div>
-                            </li>
-                        </ul>
+                        <table class="table table-striped table-condensed">
+                            <tr>
+                                <td colspan="3">
+                                    <input ng-model="searchText"
+                                           placeholder="Filtrar..."
+                                           style="font-size: 1em; width: 100%;">
+                                </td>
+                            </tr>
+                            <tr ng-repeat="item in model | filter:searchText">
+                                <td>{{item.nombre}}</td>
+                                <td>{{item.existencias}}</td>
+                                <td>{{item.embalaje}}</td>
+                                <td>{{item.precio | currency:"$":0}}</td>
+                                <td><input ng-model="item.cantidad" type="number"
+                                           min="0" max="999999"
+                                        style="font-size: 1.2em; border-radius: 4px;"></td>
+                                <td><button class="btn btn-success btn-xs" ng-click="add($index)">+</button></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -59,22 +61,22 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h3 class="panel-title">Agregados al pedido</h3>
                     </div>
                     <div class="panel-body">
-                        <button class="btn btn-primary pull-right" onClick="save();">Guardar</button>
-                        <p>
-                            <label>Filtrar: <input ng-model="searchText2" style="font-size: 1.2em;"></label>
-                        </p>
-                        <ul ng-repeat="item in model2 | filter:searchText2" class="list-group">
-                            <li class="list-group-item">
-                                <div class="row">
-                                    <div class="col-sm-8">
-                                        {{item.producto}}
-                                    </div>
-                                    <div class="col-sm-4">
-                                        {{item.cantidad}}
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                        <table class="table table-striped table-condensed">
+                            <tr>
+                                <td colspan="3">
+                                    <input ng-model="searchText2"
+                                           placeholder="Filtrar..."
+                                           style="font-size: 1em; width: 100%">
+                                </td>
+                            </tr>
+                            <tr ng-repeat="item in model2 | filter:searchText2">
+                                <td>{{item.nombre}}</td>
+                                <td><input ng-model="item.cantidad" type="number" min="0" max="999999"
+                                           style="font-size: 1.2em; border-radius: 4px;"></td>
+                                <td><button class="btn btn-danger btn-xs" ng-click="quit($index)">x</button></td>
+                            </tr>
+                        </table>
+                        <button class="btn btn-primary pull-right" onClick="save();">Guardar pedido</button>
                     </div>
                 </div>
             </div>
@@ -82,7 +84,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 </div>
+    </div>
+</div>
 
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
 <script>
 
     var app = angular.module('dnd', []);
@@ -101,16 +106,20 @@ $this->params['breadcrumbs'][] = $this->title;
             });
 
         $scope.add = function(index) {
-            it = $scope.model[index];
+            var it = $scope.model[index];
             $scope.model2.push(it);
-            $scope.remove(index);
-        };
-
-        $scope.remove = function(index) {
             if (index >= 0)
                 $scope.model.splice(index, 1);
         };
 
+        $scope.quit = function(index) {
+            var it = $scope.model2[index];
+            if (index >= 0){
+                $scope.model2.splice(index, 1);
+                it[index]=$scope.model.length;
+                $scope.model.push(it);
+            }
+        };
     });
 
 function save() {

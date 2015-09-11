@@ -39,7 +39,7 @@ class Embalaje extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idEmbalaje' => Yii::t('app', 'Id Embalaje'),
+            'idEmbalaje' => Yii::t('app', 'Id'),
             'nombre' => Yii::t('app', 'Nombre'),
         ];
     }

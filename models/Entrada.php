@@ -10,7 +10,7 @@ use Yii;
  * @property integer $idEntrada
  * @property integer $producto_idProducto
  * @property integer $cantidad
- * @property string $precio
+ * @property string $fecha
  *
  * @property Producto $productoIdProducto
  */
@@ -30,9 +30,9 @@ class Entrada extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['producto_idProducto', 'cantidad', 'precio'], 'required'],
+            [['producto_idProducto', 'cantidad'], 'required'],
             [['producto_idProducto', 'cantidad'], 'integer'],
-            [['precio'], 'number']
+            [['fecha'], 'string', 'max'=>20],
         ];
     }
 
@@ -45,7 +45,7 @@ class Entrada extends \yii\db\ActiveRecord
             'idEntrada' => Yii::t('app', 'ID'),
             'producto_idProducto' => Yii::t('app', 'Producto'),
             'cantidad' => Yii::t('app', 'Cantidad'),
-            'precio' => Yii::t('app', 'Precio'),
+            'fecha'=>'Fecha',
         ];
     }
 
@@ -66,9 +66,19 @@ class Entrada extends \yii\db\ActiveRecord
         return new EntradaQuery(get_called_class());
     }
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            $this->fecha = (new \DateTime())->format('Y-m-d');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function afterSave()
     {
-       $this->updateInventario();
+        $this->updateInventario();
     }
 
 

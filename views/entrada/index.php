@@ -24,11 +24,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'idEntrada',
-            'producto_idProducto',
-            'cantidad',
-            'precio',
+            [
+                'attribute'=>'producto_idProducto',
+                'value'=> function($model, $index, $dataColumn) {
+                    return $model->productoIdProducto->producto;
+                },
+            ],
+            [
+                'format'=>'html',
+                'attribute'=>'cantidad',
+                'value'=> function($model, $index, $dataColumn) {
+                    return $model->cantidad . ' <span class="label label-default pull-right">'.
+                    $model->productoIdProducto->embalajeIdEmbalaje->nombre
+                        .'</span>';
+                },
+            ],
+            'fecha:date',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

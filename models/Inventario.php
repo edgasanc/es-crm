@@ -40,9 +40,9 @@ class Inventario extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idInventario' => Yii::t('app', 'Id Inventario'),
-            'producto_idProducto' => Yii::t('app', 'Producto Id Producto'),
-            'stock' => Yii::t('app', 'Stock'),
+            'idInventario' => Yii::t('app', 'Id'),
+            'producto_idProducto' => Yii::t('app', 'Producto'),
+            'stock' => Yii::t('app', 'Cantidad en almacén'),
         ];
     }
 

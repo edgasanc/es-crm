@@ -25,9 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idImpuesto',
             'nombre',
-            'valor',
+            [
+                'attribute'=>'valor',
+                'label'=>'Valor (%)',
+                'value'=> function($model){return $model->valor;},
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

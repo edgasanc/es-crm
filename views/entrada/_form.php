@@ -27,16 +27,6 @@ use kartik\money\MaskMoney;
 
     <?= $form->field($model, 'cantidad')->textInput() ?>
 
-    <?= $form->field($model, 'precio')->widget(MaskMoney::classname(), [
-        'pluginOptions' => [
-            'prefix' => '$ ',
-            'suffix' => '',
-            'thousands' => '.',
-            'decimal' => ',',
-            'allowNegative' => false
-        ]
-    ]) ?>
-
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

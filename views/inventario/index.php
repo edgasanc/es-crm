@@ -25,9 +25,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idInventario',
-            'producto_idProducto',
-            'stock',
+            [
+                'attribute'=>'producto_idProducto',
+                'value'=>function($model){
+                    return $model->productoIdProducto->producto;
+                },
+            ],
+            [
+                'format'=>'html',
+                'attribute'=>'stock',
+                'value'=> function($model, $index, $dataColumn) {
+                    return $model->stock . ' <span class="label label-default pull-right">'.
+                    $model->productoIdProducto->embalajeIdEmbalaje->nombre
+                    .'</span>';
+                },
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

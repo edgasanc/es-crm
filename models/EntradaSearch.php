@@ -19,7 +19,7 @@ class EntradaSearch extends Entrada
     {
         return [
             [['idEntrada', 'producto_idProducto', 'cantidad'], 'integer'],
-            [['precio'], 'number'],
+
         ];
     }
 
@@ -59,7 +59,6 @@ class EntradaSearch extends Entrada
             'idEntrada' => $this->idEntrada,
             'producto_idProducto' => $this->producto_idProducto,
             'cantidad' => $this->cantidad,
-            'precio' => $this->precio,
         ]);
 
         return $dataProvider;

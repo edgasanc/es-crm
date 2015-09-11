@@ -19,4 +19,5 @@ return [
     "Carropedidos"=>"Pedidos",
     "Cliente"=>"Cliente",
     "Pick Items"=>"Seleccione items del pedido",
+    "Back"=>"Regresar",
 ];

@@ -1,7 +1,11 @@
 <?php
 
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Embalaje;
+use app\models\Impuesto;
+
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProductoSearch */
@@ -27,9 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'codigo',
             'producto',
-            'precio',
+            'precio:currency',
             [
               'attribute'=>  'embalaje_idEmbalaje',
+                'filter' => Html::activeDropDownList($searchModel, 'embalaje_idEmbalaje',
+                    ArrayHelper::map(Embalaje::find()->asArray()->all(), 'idEmbalaje', 'nombre'),
+                    ['class'=>'form-control','prompt' => '']),
               'value'=> function($model, $index, $dataColumn) {
                 return $model->embalajeIdEmbalaje->nombre;
                 },
@@ -37,6 +44,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute'=>  'impuestos_idImpuesto',
+                'filter' => Html::activeDropDownList($searchModel, 'impuestos_idImpuesto',
+                    ArrayHelper::map(Impuesto::find()->asArray()->all(), 'idImpuesto', 'nombre'),
+                    ['class'=>'form-control','prompt' => '']),
                 'value'=> function($model, $index, $dataColumn) {
                     return $model->impuestosIdImpuesto->nombre;
                 },
