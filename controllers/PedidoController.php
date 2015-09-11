@@ -152,6 +152,8 @@ class PedidoController extends Controller
             $carropedido = new Carropedido();
             $carropedido->pedido_idPedido = $idPedido;
             $carropedido->producto_idProducto = $producto['idProducto'];
+            $carropedido->cantidad = 0;
+            if(isset($producto['cantidad']))
             $carropedido->cantidad = $producto['cantidad'];
             $carropedido->save();
         }

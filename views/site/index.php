@@ -25,7 +25,7 @@ $this->title = 'EDGASANC-CRM';
                     ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                     fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-primary" href="../clientes">Ver Clientes &raquo;</a></p>
+                <p><a class="btn btn-primary" href="index.php?r=cliente%2Findex">Ver Clientes &raquo;</a></p>
             </div>
             <div class="col-lg-3">
                 <h2>Productos</h2>
@@ -35,7 +35,7 @@ $this->title = 'EDGASANC-CRM';
                     ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                     fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-warning" href="../productos">Ver Productos &raquo;</a></p>
+                <p><a class="btn btn-warning" href="index.php?r=producto%2Findex">Ver Productos &raquo;</a></p>
             </div>
             <div class="col-lg-3">
                 <h2>Pedidos</h2>
@@ -45,7 +45,7 @@ $this->title = 'EDGASANC-CRM';
                     ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                     fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-success" href="../pedidos">Ver Pedidos &raquo;</a></p>
+                <p><a class="btn btn-success" href="index.php?r=pedido%2Findex">Ver Pedidos &raquo;</a></p>
             </div>
             <div class="col-lg-3">
                 <h2>Almacen</h2>
@@ -55,7 +55,7 @@ $this->title = 'EDGASANC-CRM';
                     ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
                     fugiat nulla pariatur.</p>
 
-                <p><a class="btn btn-danger" href="./almacen">Ver Almacen &raquo;</a></p>
+                <p><a class="btn btn-danger" href="index.php?r=inventario%2Findex">Ver Almacen &raquo;</a></p>
             </div>
             <div class="col-lg-6">
 
