@@ -82,7 +82,7 @@ class PedidoSearch extends Pedido
             // $query->where('0=1');
             return $dataProvider;
         }
-        
+
         $query->andFilterWhere([
             'owner' => Yii::$app->user->identity->getId(),
             'idPedido' => $this->idPedido,
