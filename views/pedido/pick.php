@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="panel-body">
                         <table class="table table-striped table-condensed">
                             <tr>
-                                <td colspan="3">
+                                <td colspan="6">
                                     <input ng-model="searchText"
                                            placeholder="Filtrar..."
                                            style="font-size: 1em; width: 100%;">

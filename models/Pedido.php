@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use app\models\Pedido;
+use app\models\Carropedido;
+use app\models\Producto;;
 
 /**
  * This is the model class for table "pedido".
@@ -87,6 +90,26 @@ class Pedido extends \yii\db\ActiveRecord
         return $this->hasMany(Salida::className(), ['pedido_idPedido' => 'idPedido']);
     }
 
+	public function consultarProductosADespachar($fecha){
+	    
+	    $pedidos = Pedido::findAll(['fechaEntrega'=>$fecha]);
+	    
+	    $ids_pedidos = array_map(function($o){
+	       return $o->idPedido; 
+	    }, $pedidos);
+	    
+	    $carropedidos = Carropedido::find()->where((['IN','producto_idProducto',$ids_pedidos]))->all();
+	    
+	    $ids_productos = array_map(function($o){
+	       return $o->producto_idProducto; 
+	    },$carropedidos);
+	    
+	    
+	    $productos = Producto::find()->where((['IN','idProducto',$ids_productos]))->all();
+	    
+	    
+	    return $productos;
+	}
     /**
      * @inheritdoc
      * @return PedidoQuery the active query used by this AR class.

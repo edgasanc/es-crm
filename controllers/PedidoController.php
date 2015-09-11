@@ -140,6 +140,7 @@ class PedidoController extends Controller
             $temp = Inventario::findOne(['producto_IdProducto'=>$u->idProducto]);
             if(empty($temp)) $existencias = 0;
             else $existencias = $temp->stock;
+            $row['idProducto']=($u->idProducto);
             $row['codigo']=($u->codigo);
             $row['nombre']=($u->producto);
             $row['precio']=($u->precio);
@@ -148,14 +149,32 @@ class PedidoController extends Controller
 
             return $row;
         }, $productos);
-        return Json::encode($items, true);
+        return Json::encode($items);
     }
 
     public function actionItemsPedidos($idPedido){
+        
         $contenido_pedido = Carropedido::findAll(['pedido_idPedido'=>$idPedido]);
         $id_productos = array_map(function($o) { return $o->producto_idProducto; }, $contenido_pedido);
         $productos = Producto::find()->where(['IN','idProducto',$id_productos])->all();
-        return Json::encode($productos);
+        $items = array_map(function($u) use ($idPedido) {
+
+            $temp = Carropedido::findOne(['pedido_idPedido'=>$idPedido,
+                'producto_idProducto'=>$u->idProducto]);
+                
+            if(empty($temp)) $cantidad = 0;
+            else $cantidad = $temp->cantidad;
+            $row['idProducto']=($u->idProducto);
+            $row['codigo']=($u->codigo);
+            $row['nombre']=($u->producto);
+            $row['precio']=($u->precio);
+            $row['embalaje']=($u->embalajeIdEmbalaje->nombre);
+            $row['cantidad']=($cantidad);
+
+            return $row;
+            
+        }, $productos);
+        return Json::encode($items);
     }
 
     public function actionSaveItemsPedido(){
@@ -179,6 +198,20 @@ class PedidoController extends Controller
             $carropedido->save();
         }
     }
+
+	public function actionDespachoProductos(){
+	    
+	    $lista_de_productos = [];
+	    if(isset($_POST['fecha'])){
+	        $fecha = $_POST['fecha'];
+    		$lista_de_productos = Pedido::consultarProductosADespachar($fecha);
+	    }
+
+		return $this->render('reporte',[
+			'model'=>$lista_de_productos,
+		]);
+        
+	}
 
     /**
      * Finds the Pedido model based on its primary key value.

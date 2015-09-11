@@ -26,8 +26,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'idPedido',
-
             [
                 'attribute'=>'cliente_idCliente',
                 'value'=>function($model, $index, $dataColumn) {
