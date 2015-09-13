@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="pedido-form">
 
         <form id="frmFechaEntrega" method="POST" action="<?=Url::to(['/pedido/despacho-productos'])?>">
+            <input type="hidden" name="<?= Yii::$app->request->csrfParam; ?>" value="<?= Yii::$app->request->csrfToken; ?>" />
             <label>Seleccione una fecha para consulta</label><br>
             <input name="fecha" type="date" required/>
             <button type="submit" class="btn btn-primary">Consultar</button>
@@ -43,6 +44,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <td>
                     <?= $producto->codigo; ?>
                 </td>
+                 <td>
+                    <?= $producto->nombre; ?>
+                </td>
+                 <td>
+                    <?= $producto->codigo; ?>
+                </td>
+                
             </tr>
         <?php endforeach; ?>
         </table>
