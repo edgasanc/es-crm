@@ -41,6 +41,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                            style="font-size: 1em; width: 100%;">
                                 </td>
                             </tr>
+                            <tr>
+                                <th></th>
+                                <th>Stock</th>
+                                <th>Embalaje</th>
+                                <th>Precio</th>
+                                <th>Pedido</th>
+                                <th></th>
+                            </tr>
                             <tr ng-repeat="item in model | filter:searchText">
                                 <td>{{item.nombre}}</td>
                                 <td>{{item.existencias}}</td>
@@ -63,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="panel-body">
                         <table class="table table-striped table-condensed">
                             <tr>
-                                <td colspan="3">
+                                <td colspan="4">
                                     <input ng-model="searchText2"
                                            placeholder="Filtrar..."
                                            style="font-size: 1em; width: 100%">
@@ -73,7 +81,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td>{{item.nombre}}</td>
                                 <td><input ng-model="item.cantidad" type="number" min="0" max="999999"
                                            style="font-size: 1.2em; border-radius: 4px;"></td>
+                                <td style="text-align: right;">{{item.precio * item.cantidad | currency:"$":0}}</td>
                                 <td><button class="btn btn-danger btn-xs" ng-click="quit($index)">x</button></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Subtotal</td>
+                                <td style="text-align: right;">{{ getTotal() | currency:"$":0 }}</td>
+                                <td></td>
                             </tr>
                         </table>
                         <button class="btn btn-primary pull-right" onClick="save();">Guardar pedido</button>
@@ -92,6 +106,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     var app = angular.module('dnd', []);
     app.controller('dndCtrl', function($scope, $http) {
+
+        $scope.total = 0;
+        $scope.borrados = [];
+
         $http.get('<?php echo Url::to(['pedido/items','idPedido'=>$model->idPedido]) ?>').
             success(function(data) {
                 $scope.model = data;
@@ -114,19 +132,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
         $scope.quit = function(index) {
             var it = $scope.model2[index];
+            $scope.borrados.push(it.idProducto);
             if (index >= 0){
                 $scope.model2.splice(index, 1);
                 it[index]=$scope.model.length;
                 $scope.model.push(it);
             }
         };
+
+        $scope.getTotal = function(){
+            var total = 0;
+            for(var i = 0; i < $scope.model2.length; i++){
+                var product = $scope.model2[i];
+                total += (product.precio * product.cantidad);
+            }
+            return total;
+        }
     });
 
 function save() {
 
         var scope = angular.element($("#main")).scope();
+        var idPedido = <?=$model->idPedido?>;
         var modelo = JSON.stringify(scope.model2);
-        var dataString = "idPedido=" + <?=$model->idPedido?> + "&data=" + modelo;
+        var borrados = JSON.stringify(scope.borrados);
+        var dataString = "idPedido=" + idPedido + "&borrados=" + borrados + "&data=" + modelo;
         $.ajax({
             type: "POST",
             url: "<?php echo Url::to(['pedido/save-items-pedido']) ?>",
@@ -134,7 +164,7 @@ function save() {
             cache: false,
             success: function (html) {
                 alert("Orden de productos guardada");
-                location.href="<?php echo Url::to(['pedido/index']) ?>";
+               // location.href="<?php echo Url::to(['pedido/index']) ?>";
             }
         });
     }

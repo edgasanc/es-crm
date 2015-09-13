@@ -7,17 +7,13 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\InventarioSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Inventarios');
+$this->title = Yii::t('app', 'Inventario');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="inventario-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Inventario'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

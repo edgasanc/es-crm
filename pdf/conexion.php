@@ -2,7 +2,7 @@
 //Datos conexion
 	$servername = "localhost";
 	$username = "root";
-	$password = "C0mpleja!";
+	$password = "0DHCBH3B";
 	$dbname = "crm";
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);

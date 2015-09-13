@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Factura',
                 'format' => 'raw',
                 'value' => function($model){
-                    return Html::a(Html::encode("Ver"),"http://jdc.edgasanc.com/es-crm/pdf/examples/factura.php?idCliente=".$model->clienteIdCliente->idCliente."&idPedido=".$model->idPedido);
+                    return Html::a(Html::encode("Ver"),"/es-crm/pdf/examples/factura.php?idCliente=".$model->clienteIdCliente->idCliente."&idPedido=".$model->idPedido);
                 }
             ],
             ['class' => 'yii\grid\ActionColumn'],

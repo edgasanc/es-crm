@@ -180,23 +180,36 @@ class PedidoController extends Controller
     public function actionSaveItemsPedido(){
         $idPedido = $_POST['idPedido'];
         $data = $_POST['data'];
+        $borrados = $_POST['borrados'];
 
-        /*
-         *
-         * array(1) { [0]=> object(stdClass)#88 (8) { ["idProducto"]=> int(2) ["codigo"]=> int(1) ["producto"]=> string(10) "Jabon SOAP" ["precio"]=> string(8) "55000.00" ["embalaje_idEmbalaje"]=> int(4) ["impuestos_idImpuesto"]=> int(3) ["$$hashKey"]=> string(8) "object:3" ["cantidad"]=> int(5) } }
-         *
-         */
-         $lista_productos_seleccionados = json_decode($data, true);
+        $lista_productos_a_borrar = json_decode($borrados, true);
+
+        $lista_productos_seleccionados = json_decode($data, true);
+        var_dump(array_values($lista_productos_a_borrar));
+        foreach(array_values($lista_productos_a_borrar) as $idProducto){
+            $carropedido = Carropedido::find()->where(['pedido_idPedido'=>$idPedido,'producto_idProducto'=>$idProducto]);
+            if($carropedido->exists()){
+                $carropedido->one()->delete();
+            }
+        }
 
         foreach($lista_productos_seleccionados as $producto){
-            $carropedido = new Carropedido();
-            $carropedido->pedido_idPedido = $idPedido;
-            $carropedido->producto_idProducto = $producto['idProducto'];
-            $carropedido->cantidad = 0;
-            if(isset($producto['cantidad']))
-            $carropedido->cantidad = $producto['cantidad'];
+
+            $idProducto = $producto['idProducto'];
+
+            $carropedido = Carropedido::find()->where(['pedido_idPedido'=>$idPedido,'producto_idProducto'=>$idProducto]);
+            if($carropedido->exists()){
+                $carropedido = $carropedido->one();
+                $carropedido->cantidad = $producto['cantidad'];
+            }else{
+                $carropedido = new Carropedido();
+                $carropedido->pedido_idPedido = $idPedido;
+                $carropedido->producto_idProducto = $idProducto;
+                $carropedido->cantidad = $producto['cantidad'];
+            }
             $carropedido->save();
         }
+
     }
 
 	public function actionDespachoProductos(){

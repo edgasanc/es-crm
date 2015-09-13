@@ -3,9 +3,6 @@
 namespace app\models;
 
 use Yii;
-use app\models\Pedido;
-use app\models\Carropedido;
-use app\models\Producto;;
 
 /**
  * This is the model class for table "pedido".
