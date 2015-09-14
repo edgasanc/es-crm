@@ -164,7 +164,7 @@ function save() {
             cache: false,
             success: function (html) {
                 alert("Orden de productos guardada");
-               // location.href="<?php echo Url::to(['pedido/index']) ?>";
+                location.href="<?php echo Url::to(['pedido/index']) ?>";
             }
         });
     }

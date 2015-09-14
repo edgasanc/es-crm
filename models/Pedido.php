@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\db\Query;
 
 /**
  * This is the model class for table "pedido".
@@ -87,26 +88,22 @@ class Pedido extends \yii\db\ActiveRecord
         return $this->hasMany(Salida::className(), ['pedido_idPedido' => 'idPedido']);
     }
 
-	public function consultarProductosADespachar($fecha){
-	    
-	    $pedidos = Pedido::findAll(['fechaEntrega'=>$fecha]);
-	    
-	    $ids_pedidos = array_map(function($o){
-	       return $o->idPedido; 
-	    }, $pedidos);
-	    
-	    $carropedidos = Carropedido::find()->where((['IN','producto_idProducto',$ids_pedidos]))->all();
-	    
-	    $ids_productos = array_map(function($o){
-	       return $o->producto_idProducto; 
-	    },$carropedidos);
-	    
-	    
-	    $productos = Producto::find()->where((['IN','idProducto',$ids_productos]))->all();
-	    
-	    
-	    return $productos;
+	public static function consultarProductosADespachar($fecha)
+    {
+
+        $query = new Query;
+        $query->select('c.idProducto, c.codigo, c.producto, SUM(b.cantidad) as cantidad, d.nombre as embalaje')
+            ->from('pedido a, carropedido b, producto c, embalaje d')
+            ->where(['a.fechaEntrega'=>$fecha])
+            ->andWhere('a.idPedido = b.pedido_idPedido')
+            ->andWhere('b.producto_idProducto = c.idProducto')
+            ->andWhere('c.embalaje_idEmbalaje = d.idEmbalaje')
+            ->groupBy("c.idProducto");
+
+        $rows = $query->all();
+	    return $rows;
 	}
+
     /**
      * @inheritdoc
      * @return PedidoQuery the active query used by this AR class.

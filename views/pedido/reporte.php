@@ -35,26 +35,33 @@ $this->params['breadcrumbs'][] = $this->title;
     
     </div>
     
-
-    <?php if(!empty($model)):?>
-    <h3><?= Html::encode("Productos") ?></h3>
+    <?php if(!empty($rows)):?>
+    <h3><?= Html::encode("Productos para despachar el ".$_POST['fecha']) ?></h3>
         <table class="table table-stripped">
-        <?php foreach($model as $producto) :?>
+        <?php foreach($rows as $item) :?>
             <tr>
                 <td>
-                    <?= $producto->codigo; ?>
+                    <?= $item['codigo'] ?>
                 </td>
                  <td>
-                    <?= $producto->nombre; ?>
+                    <?= $item['producto'] ?>
+                </td>
+                <td>
+                    <?= $item['cantidad'] ?>
                 </td>
                  <td>
-                    <?= $producto->codigo; ?>
+                    <?= $item['embalaje'] ?>
                 </td>
                 
             </tr>
         <?php endforeach; ?>
         </table>
-    <?php endif;?>
+    <?php else:
+        if($mod==false)
+        echo "<h4>No hay productos para despachar en un pedido este día</h4>";
+        endif;
+    ?>
+
 
 </div>
 

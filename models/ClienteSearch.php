@@ -88,7 +88,7 @@ class ClienteSearch extends Cliente
 
         $query->andFilterWhere([
             'idCliente' => $this->idCliente,
-            'owner' => Yii::$app->user->identity->getId(),
+            //'owner' => Yii::$app->user->identity->getId(),
         ]);
 
         $query->andFilterWhere(['like', 'razonSocial', $this->razonSocial])

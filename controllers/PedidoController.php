@@ -128,7 +128,7 @@ class PedidoController extends Controller
             return $this->render('pick', [
                 'model' => $pedido,
             ]);
-        else new NotFoundHttpException("No puede modificar a pocas horas de la entrega");
+        else throw new NotFoundHttpException("No puede modificar a pocas horas de la entrega");
     }
 
     public function actionItems($idPedido){
@@ -215,15 +215,18 @@ class PedidoController extends Controller
 	public function actionDespachoProductos(){
 	    
 	    $lista_de_productos = [];
+        $mod = true;
 	    if(isset($_POST['fecha'])){
 	        $fecha = $_POST['fecha'];
     		$lista_de_productos = Pedido::consultarProductosADespachar($fecha);
+            $mod = false;
 	    }
 
 		return $this->render('reporte',[
-			'model'=>$lista_de_productos,
+			'rows'=>$lista_de_productos,
+            'mod'=>$mod,
 		]);
-        
+
 	}
 
     /**
