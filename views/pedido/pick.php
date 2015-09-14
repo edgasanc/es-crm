@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td><input ng-model="item.cantidad" type="number"
                                            min="0" max="999999"
                                         style="font-size: 1.2em; border-radius: 4px;"></td>
-                                <td><button class="btn btn-success btn-xs" ng-click="add($index)">+</button></td>
+                                <td><button class="btn btn-success btn-xs" ng-click="add(item.idProducto)">+</button></td>
                             </tr>
                         </table>
                     </div>
@@ -82,7 +82,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <td><input ng-model="item.cantidad" type="number" min="0" max="999999"
                                            style="font-size: 1.2em; border-radius: 4px;"></td>
                                 <td style="text-align: right;">{{item.precio * item.cantidad | currency:"$":0}}</td>
-                                <td><button class="btn btn-danger btn-xs" ng-click="quit($index)">x</button></td>
+                                <td><button class="btn btn-danger btn-xs" ng-click="quit(item.idProducto)">x</button></td>
                             </tr>
                             <tr>
                                 <td colspan="2">Subtotal</td>
@@ -123,20 +123,41 @@ $this->params['breadcrumbs'][] = $this->title;
                 console.log(status);
             });
 
-        $scope.add = function(index) {
-            var it = $scope.model[index];
+        $scope.add = function(idProducto) {
+            var it = $scope.findModelById(idProducto);
             $scope.model2.push(it);
-            if (index >= 0)
-                $scope.model.splice(index, 1);
+            if (it.indice >= 0)
+                $scope.model.splice(it.indice, 1);
         };
 
-        $scope.quit = function(index) {
-            var it = $scope.model2[index];
-            $scope.borrados.push(it.idProducto);
-            if (index >= 0){
-                $scope.model2.splice(index, 1);
-                it[index]=$scope.model.length;
+        $scope.quit = function(idProducto) {
+            var it = $scope.findModel2ById(idProducto);
+            $scope.borrados.push(idProducto);
+            if (it.indice >= 0){
+                $scope.model2.splice(it.indice, 1);
                 $scope.model.push(it);
+            }
+        };
+
+        $scope.findModelById = function(idProducto){
+
+            for(var i = 0; i < $scope.model.length; i++){
+                var product = $scope.model[i];
+                if(product.idProducto == idProducto){
+                    product.indice = i;
+                    return product;
+                }
+            }
+        };
+
+        $scope.findModel2ById = function(idProducto){
+
+            for(var i = 0; i < $scope.model2.length; i++){
+                var product = $scope.model2[i];
+                if(product.idProducto == idProducto){
+                    product.indice = i;
+                    return product;
+                }
             }
         };
 
