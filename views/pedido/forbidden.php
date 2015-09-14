@@ -12,17 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="pedido-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'clienteIdCliente.razonSocial',
-            'fechaOrden',
-            'fechaEntrega',
-            'estadoIdEstado.nombre',
-        ],
-    ]) ?>
+    <h1>No puede modificar este pedido</h1>
+    <h2>después de las 5 p.m del día antes de su envío</h2>
 
     <p>
         <?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>

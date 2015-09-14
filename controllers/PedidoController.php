@@ -128,7 +128,9 @@ class PedidoController extends Controller
             return $this->render('pick', [
                 'model' => $pedido,
             ]);
-        else throw new NotFoundHttpException("No puede modificar a pocas horas de la entrega");
+        else return $this->render('forbidden', [
+            'model' => $pedido,
+        ]);
     }
 
     public function actionItems($idPedido){
