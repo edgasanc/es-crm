@@ -187,7 +187,6 @@ class PedidoController extends Controller
         $lista_productos_a_borrar = json_decode($borrados, true);
 
         $lista_productos_seleccionados = json_decode($data, true);
-        var_dump(array_values($lista_productos_a_borrar));
         foreach(array_values($lista_productos_a_borrar) as $idProducto){
             $carropedido = Carropedido::find()->where(['pedido_idPedido'=>$idPedido,'producto_idProducto'=>$idProducto]);
             if($carropedido->exists()){
@@ -230,6 +229,30 @@ class PedidoController extends Controller
 		]);
 
 	}
+
+
+    public function actionReporteVentas(){
+
+        $lista_pedidos = [];
+        $total = 0;
+        $mod = true;
+        if(isset($_POST['fechai']) && isset($_POST['fechaf'])){
+            $fechai = $_POST['fechai'];
+            $fechaf = $_POST['fechaf'];
+            $lista_pedidos = Pedido::consultarRegistroVentas($fechai, $fechaf);
+            foreach($lista_pedidos as $pedido){
+                $total += $pedido['numero_pedidos'];
+            }
+            $mod = false;
+        }
+
+        return $this->render('consultas',[
+            'rows'=>$lista_pedidos,
+            'total'=>$total,
+            'mod'=>$mod,
+        ]);
+
+    }
 
     /**
      * Finds the Pedido model based on its primary key value.

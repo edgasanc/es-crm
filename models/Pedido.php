@@ -104,6 +104,20 @@ class Pedido extends \yii\db\ActiveRecord
 	    return $rows;
 	}
 
+    public static function consultarRegistroVentas($fechai, $fechaf)
+    {
+
+        $query = new Query;
+        $query->select('b.username as vendedor, c.name as nombre, COUNT(*) as numero_pedidos')
+            ->from('pedido a, user b, profile c')
+            ->where(['BETWEEN', 'a.fechaOrden', $fechai, $fechaf])
+            ->andWhere('a.owner = b.id')
+            ->andWhere('b.id = c.user_id')
+            ->groupBy("a.owner");
+        $rows = $query->all();
+        return $rows;
+    }
+
     /**
      * @inheritdoc
      * @return PedidoQuery the active query used by this AR class.
