@@ -18,6 +18,7 @@
 			$telefono= $row1['telefono'];
 			$nit= $row1['nit'];
 			$email= $row1['email'];
+			$nombre= $row1['nombre'];
 		}
 	}
 
@@ -41,7 +42,7 @@
 WHERE c.producto_IdProducto = p.idProducto AND p.impuestos_idImpuesto = i.idImpuesto AND c.pedido_idPedido='$idPedido'";
 	$resultCarroCompras= $conn->query($sqlCarroCompras);
 
-	
+
 /*
 	//Consultas
 	$sqlEstudiante="SELECT e.nombres, e.apellidos, e.numero_documento, e.ciudad_expedicion, t.descripcion_tipo_documento, e.tipo_sangre, e.ano_nacimiento, e.nombre_eps, e.celular, e.direccion_casa, e.telefono_casa, e.barrio_casa, e.direccion_oficina, e.telefono_oficina, e.barrio_oficina, e.empresa, e.nombre_caso_accidente, e.telefono_caso_accidente, e.observaciones FROM tbl_estudiante e INNER JOIN pltbl_tipodocumento t ON t.idpltbl_tipodocumento=e.tipo_documento WHERE idEstudiante='".$idEstudiante."'";

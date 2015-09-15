@@ -19,7 +19,7 @@ class ClienteSearch extends Cliente
     {
         return [
             [['idCliente'], 'integer'],
-            [['razonSocial', 'direccion', 'barrio', 'telefono', 'nit', 'email'], 'safe'],
+            [['razonSocial', 'direccion', 'barrio', 'telefono', 'nit', 'email', 'ruta', 'dia'], 'safe'],
         ];
     }
 
@@ -64,7 +64,9 @@ class ClienteSearch extends Cliente
             ->andFilterWhere(['like', 'barrio', $this->barrio])
             ->andFilterWhere(['like', 'telefono', $this->telefono])
             ->andFilterWhere(['like', 'nit', $this->nit])
-            ->andFilterWhere(['like', 'email', $this->email]);
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'ruta', $this->ruta])
+            ->andFilterWhere(['like', 'dia', $this->dia]);
 
         return $dataProvider;
     }
@@ -96,7 +98,9 @@ class ClienteSearch extends Cliente
             ->andFilterWhere(['like', 'barrio', $this->barrio])
             ->andFilterWhere(['like', 'telefono', $this->telefono])
             ->andFilterWhere(['like', 'nit', $this->nit])
-            ->andFilterWhere(['like', 'email', $this->email]);
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'ruta', $this->ruta])
+            ->andFilterWhere(['like', 'dia', $this->dia]);
 
         return $dataProvider;
     }

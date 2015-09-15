@@ -35,10 +35,10 @@ class Cliente extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['razonSocial', 'direccion', 'nit', 'owner'], 'required'],
+            [['razonSocial', 'direccion', 'nit', 'owner', 'nombre', 'ruta', 'dia'], 'required'],
             [['nit'], 'unique'],
-            [['razonSocial', 'direccion', 'email'], 'string', 'max' => 255],
-            [['barrio'], 'string', 'max' => 45],
+            [['razonSocial', 'direccion', 'email', 'nombre', 'ruta'], 'string', 'max' => 255],
+            [['barrio','dia'], 'string', 'max' => 45],
             [['telefono'], 'string', 'max' => 20],
             [['nit'], 'string', 'max' => 12]
         ];
@@ -57,6 +57,9 @@ class Cliente extends \yii\db\ActiveRecord
             'telefono' => Yii::t('app', 'Telefono'),
             'nit' => Yii::t('app', 'Nit'),
             'email' => Yii::t('app', 'Email'),
+            'nombre' => Yii::t('app', 'Nombre'),
+            'ruta' => Yii::t('app', 'Ruta'),
+            'dia' => Yii::t('app', 'Dia'),
         ];
     }
 
