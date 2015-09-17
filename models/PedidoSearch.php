@@ -12,6 +12,9 @@ use app\models\Pedido;
  */
 class PedidoSearch extends Pedido
 {
+
+    public $dirCliente;
+    public $nitCliente;
     /**
      * @inheritdoc
      */
@@ -19,7 +22,7 @@ class PedidoSearch extends Pedido
     {
         return [
             [['idPedido', 'cliente_idCliente', 'estado_idEstado'], 'integer'],
-            [['fechaEntrega', 'fechaOrden'], 'safe'],
+            [['fechaEntrega', 'fechaOrden', 'nitCliente', 'dirCliente'], 'safe'],
         ];
     }
 
@@ -52,6 +55,7 @@ class PedidoSearch extends Pedido
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
+            $query->joinWith(['clienteIdCliente']);
             return $dataProvider;
         }
 
@@ -62,6 +66,11 @@ class PedidoSearch extends Pedido
             'fechaOrden' => $this->fechaOrden,
             'estado_idEstado' => $this->estado_idEstado,
         ]);
+
+        $query->joinWith(['clienteIdCliente' => function ($q) {
+            $q->where('cliente.nit LIKE "' . $this->nitCliente . '%"');
+            $q->andWhere('cliente.direccion LIKE "%' . $this->dirCliente . '%"');
+        }]);
 
         return $dataProvider;
     }
@@ -80,6 +89,7 @@ class PedidoSearch extends Pedido
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
+            $query->joinWith(['clienteIdCliente']);
             return $dataProvider;
         }
 
@@ -91,6 +101,9 @@ class PedidoSearch extends Pedido
             'fechaOrden' => $this->fechaOrden,
             'estado_idEstado' => $this->estado_idEstado,
         ]);
+        $query->joinWith(['clienteIdCliente' => function ($q) {
+            $q->where('cliente.nit LIKE "' . $this->nitCliente . '%"');
+        }]);
 
         return $dataProvider;
     }

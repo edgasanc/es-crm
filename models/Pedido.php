@@ -53,6 +53,8 @@ class Pedido extends \yii\db\ActiveRecord
             'fechaEntrega' => Yii::t('app', 'Fecha Entrega'),
             'fechaOrden' => Yii::t('app', 'Fecha Orden'),
             'estado_idEstado' => Yii::t('app', 'Estado'),
+            'nitCliente'=>Yii::t('app', 'NIT'),
+            'dirCliente'=>Yii::t('app', 'Dirección'),
         ];
     }
 
@@ -70,6 +72,16 @@ class Pedido extends \yii\db\ActiveRecord
     public function getClienteIdCliente()
     {
         return $this->hasOne(Cliente::className(), ['idCliente' => 'cliente_idCliente']);
+    }
+
+
+    public function getNitCliente() {
+        return $this->clienteIdCliente->nit;
+    }
+
+
+    public function getDirCliente() {
+        return $this->clienteIdCliente->direccion;
     }
 
     /**
@@ -106,7 +118,6 @@ class Pedido extends \yii\db\ActiveRecord
 
     public static function consultarRegistroVentas($fechai, $fechaf)
     {
-
         $query = new Query;
         $query->select('b.username as vendedor, c.name as nombre, COUNT(*) as numero_pedidos')
             ->from('pedido a, user b, profile c')
@@ -116,6 +127,29 @@ class Pedido extends \yii\db\ActiveRecord
             ->groupBy("a.owner");
         $rows = $query->all();
         return $rows;
+    }
+
+    public static function consultarRegistrosVentasDia($fechai){
+        $query = new Query;
+        $query->select('b.username as vendedor, c.name as nombre, COUNT(*) as numero_pedidos')
+            ->from('pedido a, user b, profile c')
+            ->where(['a.fechaOrden' => $fechai])
+            ->andWhere('a.owner = b.id')
+            ->andWhere('b.id = c.user_id')
+            ->groupBy("a.owner");
+        $rows = $query->all();
+        return $rows;
+    }
+
+    public static function consultarRegistrosVentasMes($mes){
+
+        $now = new \DateTime();
+        $year = $now->format('Y');
+        $day = "1";
+        $fechai = new \DateTime($year.'-'.$mes.'-'.$day);
+        $fechaf = new \DateTime($year.'-'.(intval($mes)+1).'-'.$day);
+        $fechaf = $fechaf->sub(new \DateInterval('P0Y0M1D'));
+        return Pedido::consultarRegistroVentas($fechai->format('Y-m-d'), $fechaf->format('Y-m-d'));
     }
 
     /**

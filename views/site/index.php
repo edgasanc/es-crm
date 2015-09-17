@@ -1,17 +1,16 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\helpers\Url;
-use kartik\datecontrol\DateControl;
-use app\models\Cliente;
-use app\models\Estado;
-use yii\helpers\ArrayHelper;
-use kartik\widgets\Select2;
-
 /* @var $this yii\web\View */
 
-$this->title = 'EDGASANC-CRM';
+if(Yii::$app->user->isGuest)
+    header("Location: index.php?r=user/security/login");
+else
+    header("Location: index.php?r=pedido/index");
+
+
+die();
+
+
 ?>
 <div class="site-index">
 

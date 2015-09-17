@@ -123,6 +123,10 @@ class PedidoController extends Controller
         $now = new \DateTime();
         $pedido = Pedido::findOne(['idPedido'=>$idPedido]);
         $entrega = new \DateTime($pedido->fechaEntrega);
+        return $this->render('pick', [
+            'model' => $pedido,
+        ]);
+        /*
         $entrega = $entrega->sub(new \DateInterval('P0Y0M0DT7H'));
         if($now<$entrega)
             return $this->render('pick', [
@@ -131,6 +135,7 @@ class PedidoController extends Controller
         else return $this->render('forbidden', [
             'model' => $pedido,
         ]);
+        */
     }
 
     public function actionItems($idPedido){
@@ -223,7 +228,7 @@ class PedidoController extends Controller
             $mod = false;
 	    }
 
-		return $this->render('reporte',[
+		return $this->render('despacho',[
 			'rows'=>$lista_de_productos,
             'mod'=>$mod,
 		]);
@@ -246,7 +251,52 @@ class PedidoController extends Controller
             $mod = false;
         }
 
-        return $this->render('consultas',[
+        return $this->render('reporte-ventas',[
+            'rows'=>$lista_pedidos,
+            'total'=>$total,
+            'mod'=>$mod,
+        ]);
+
+    }
+
+
+    public function actionReporteVentasDiario(){
+
+        $lista_pedidos = [];
+        $total = 0;
+        $mod = true;
+        if(isset($_POST['fecha'])){
+            $fecha = $_POST['fecha'];
+            $fechai = new \DateTime($fecha);
+            $lista_pedidos = Pedido::consultarRegistroVentas($fechai->format('Y-m-d'), null);
+            foreach($lista_pedidos as $pedido){
+                $total += $pedido['numero_pedidos'];
+            }
+            $mod = false;
+        }
+
+        return $this->render('reporte-ventas-diario',[
+            'rows'=>$lista_pedidos,
+            'total'=>$total,
+            'mod'=>$mod,
+        ]);
+    }
+
+    public function actionReporteVentasMensual(){
+
+        $lista_pedidos = [];
+        $total = 0;
+        $mod = true;
+        if(isset($_POST['mes'])){
+            $mes = $_POST['mes'];
+            $lista_pedidos = Pedido::consultarRegistrosVentasMes($mes);
+            foreach($lista_pedidos as $pedido){
+                $total += $pedido['numero_pedidos'];
+            }
+            $mod = false;
+        }
+
+        return $this->render('reporte-ventas-mensual',[
             'rows'=>$lista_pedidos,
             'total'=>$total,
             'mod'=>$mod,

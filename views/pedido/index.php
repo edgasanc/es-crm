@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->clienteIdCliente->razonSocial;
                 },
             ],
+            'nitCliente',
+            'dirCliente',
             'fechaOrden',
             'fechaEntrega',
             [
@@ -40,7 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->estadoIdEstado->nombre;
                 },
             ],
-
             [
                 'label' => 'Productos',
                 'format' => 'raw',

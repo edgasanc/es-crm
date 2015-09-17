@@ -43,9 +43,16 @@ AppAsset::register($this);
                 'items' => [
                     ['label' => 'Inventario', 'url' => ['inventario/index']],
                     ['label' => 'Registrar Entradas', 'url' => ['entrada/index']],
+                ]
+            ],
+            [
+                'label' => 'Reportes',
+                'items' => [
                     ['label' => 'Reporte Despacho', 'url' => ['pedido/despacho-productos']],
                     ['label' => 'Reporte Ventas', 'url' => ['pedido/reporte-ventas']],
-                ],
+                    ['label' => 'Reporte Mensual', 'url' => ['pedido/reporte-ventas-mensual']],
+                    ['label' => 'Reporte Diario', 'url' => ['pedido/reporte-ventas-diario']],
+                ]
             ],
             [
                 'label' => 'Parametros',
