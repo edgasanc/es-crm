@@ -94,7 +94,7 @@ class PedidoSearch extends Pedido
         }
 
         $query->andFilterWhere([
-            'owner' => Yii::$app->user->identity->getId(),
+            'pedido.owner' => Yii::$app->user->identity->getId(),
             'idPedido' => $this->idPedido,
             'cliente_idCliente' => $this->cliente_idCliente,
             'fechaEntrega' => $this->fechaEntrega,

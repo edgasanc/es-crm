@@ -38,7 +38,7 @@ class PedidoController extends Controller
     public function actionIndex()
     {
         $searchModel = new PedidoSearch();
-        if(Yii::$app->user->identity->username=="admin")
+        if(Yii::$app->user->identity!=null && Yii::$app->user->identity->username=="admin")
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         else $dataProvider = $searchModel->search2(Yii::$app->request->queryParams);
 
